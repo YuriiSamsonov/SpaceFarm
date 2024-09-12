@@ -140,7 +140,13 @@ namespace Game.Scripts
                 
                 if (pot != null)
                 {
+                    if (!pot.CanPlant(ItemData))
+                    {
+                        return;
+                    }
+                    
                     pot.PlantSeed();
+                    
                     _inventory.RemoveItem(ItemData);
                 }
                 else

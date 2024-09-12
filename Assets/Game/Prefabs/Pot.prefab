@@ -305,6 +305,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52b59e4473ef26c42ac78c14a1b9c575, type: 2}
   _outline: {fileID: 1817105471827452736}
   _inventory: {fileID: 0}
+  _plantData: {fileID: 11400000, guid: 52b59e4473ef26c42ac78c14a1b9c575, type: 2}
   _maxDistance: 5
   _startPlantScale: 2
   _endPlantScale: 8

@@ -19,6 +19,9 @@ namespace Game.Scripts
         private Inventory _inventory;
 
         [field: SerializeField] 
+        private ItemData _plantData;
+        
+        [field: SerializeField] 
         private float _maxDistance = 5f;
         
         [field: SerializeField] 
@@ -53,6 +56,16 @@ namespace Game.Scripts
         {
             _inventory.OnItemHoverStart -= OnPlantStartHover;
             _inventory.OnItemHoverEnd -= OnPlantEndHover;
+        }
+
+        public bool CanPlant(ItemData data)
+        {
+            if (data == _plantData)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void PlantSeed()
@@ -135,7 +148,5 @@ namespace Game.Scripts
             
             Gizmos.DrawWireSphere(transform.position, _maxDistance);
         }
-
-       
     }
 }

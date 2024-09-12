@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Game.Scripts
@@ -7,6 +8,9 @@ namespace Game.Scripts
     {
         [field: SerializeField] 
         private GameObject _plantObject;
+
+        [field: SerializeField] 
+        private List<ItemData> _itemsToYiel = new();
         
         [field: SerializeField] 
         private Outline _outline;
@@ -27,6 +31,7 @@ namespace Game.Scripts
         private float _secondsToGrow = 5f;
 
         private PlayerController _player;
+        private LootingManager _lootingManager;
 
         private bool _hasPlant;
         private bool _readyToHarvest;
@@ -36,7 +41,9 @@ namespace Game.Scripts
         private void Awake()
         {
             _outline.enabled = false;
+            
             _player = FindObjectOfType<PlayerController>();
+            _lootingManager = FindObjectOfType<LootingManager>();
             
             _inventory.OnItemHoverStart += OnPlantStartHover;
             _inventory.OnItemHoverEnd += OnPlantEndHover;
@@ -70,6 +77,8 @@ namespace Game.Scripts
                 _plantObject.SetActive(false);
                 _hasPlant = false;
                 _readyToHarvest = false;
+                
+                _lootingManager.StartMovement(_itemsToYiel, transform.position);
             }
         }
 

@@ -299,6 +299,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _plantObject: {fileID: 2942088405828671983}
+  _itemsToYiel:
+  - {fileID: 11400000, guid: 52b59e4473ef26c42ac78c14a1b9c575, type: 2}
+  - {fileID: 11400000, guid: 52b59e4473ef26c42ac78c14a1b9c575, type: 2}
+  - {fileID: 11400000, guid: 52b59e4473ef26c42ac78c14a1b9c575, type: 2}
   _outline: {fileID: 1817105471827452736}
   _inventory: {fileID: 0}
   _maxDistance: 5

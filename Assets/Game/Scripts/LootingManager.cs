@@ -12,6 +12,9 @@ namespace Game.Scripts
     public class LootingManager : MonoBehaviour
     {
         [field: SerializeField] 
+        private PlayerController _playerController;
+        
+        [field: SerializeField] 
         private RectTransform _canvasRectTransform;
         
         [field: SerializeField] 
@@ -28,18 +31,17 @@ namespace Game.Scripts
         
         [field: SerializeField, Tooltip("Max spread of object's translation")] 
         private float _maxSpread = 200f;
-
-        private readonly Vector2 _targetPosition = new (640, 360);
-        private Camera _mainCamera;
         
-        public event Action OnMovementComplete;
+        private Camera _mainCamera;
+             
+        public event Action<ItemData> OnMovementComplete;
         
         private void Awake()
         {
             _mainCamera = Camera.main;
         }
 
-        public void StartMovement(List<ItemData> itemsToReturn)
+        public void StartMovement(List<ItemData> itemsToReturn, Vector3 startPos)
         {
             float delay = 0f;
 
@@ -47,20 +49,21 @@ namespace Game.Scripts
             {
                 DOVirtual.DelayedCall(delay, () =>
                 {
-                    var screenPoint = _mainCamera.WorldToScreenPoint(transform.position);
+                    var startScreenPoint = _mainCamera.WorldToScreenPoint(startPos);
+                    var endScreenPoint = _mainCamera.WorldToScreenPoint(_playerController.transform.position);
 
-                    var itemReceivingObject = Instantiate(_draggedItemPrefab, screenPoint, quaternion.identity, _canvasRectTransform);
+                    var movingImage = Instantiate(_draggedItemPrefab, startScreenPoint, quaternion.identity, _canvasRectTransform);
                         
-                    itemReceivingObject.sprite = itemContainer.ItemSprite;
+                    movingImage.sprite = itemContainer.ItemSprite;
 
-                    Vector2[] path = GenerateRandomPath(screenPoint, _targetPosition);
+                    var path = GenerateRandomPath(startScreenPoint, endScreenPoint);
 
-                    itemReceivingObject.transform
+                    movingImage.transform
                         .DOPath(path.Select(p => (Vector3) p).ToArray(), _movementSpeed, PathType.CatmullRom).OnComplete(
                             () =>
                             {
-                                DestroyImmediate(itemReceivingObject.gameObject);
-                                OnMovementComplete?.Invoke();
+                                DestroyImmediate(movingImage.gameObject);
+                                OnMovementComplete?.Invoke(itemContainer);
                             });
                 });
                 
@@ -70,13 +73,13 @@ namespace Game.Scripts
         
         private Vector2[] GenerateRandomPath(Vector2 startPos, Vector2 targetPos)
         {
-            float randomX = Random.Range(_minSpread, _maxSpread);
-            float randomY = Random.Range(_minSpread, _maxSpread);
+            var randomX = Random.Range(_minSpread, _maxSpread);
+            var randomY = Random.Range(_minSpread, _maxSpread);
             
             randomX *= Random.value > 0.5f ? 1 : -1;
             randomY *= Random.value > 0.5f ? 1 : -1;
             
-            Vector2 controlPoint1 = startPos + new Vector2(randomX, randomY);
+            var controlPoint1 = startPos + new Vector2(randomX, randomY);
         
             return new [] { controlPoint1, targetPos };
         }

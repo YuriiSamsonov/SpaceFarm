@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,8 +23,8 @@ namespace Game.Scripts
         private Transform _canvasTransform;
         
         [field: SerializeField] 
-        private PlayerController _player;
-        
+        private LootingManager _lootingManager;
+
         private List<InventorySlot> _slots = new();
         
         public delegate void ItemHoverEventHandler();
@@ -32,6 +33,8 @@ namespace Game.Scripts
         
         private void Awake()
         {
+            _lootingManager.OnMovementComplete += AddItem;           
+            
             for (int i = 0; i < _inventorySize; i++)
             {
                 var slot = Instantiate(_slotPrefab, _inventoryUIParent);
@@ -89,6 +92,11 @@ namespace Game.Scripts
         public void EndHoverItem()
         {
             OnItemHoverEnd?.Invoke();
+        }
+
+        private void OnDestroy()
+        {
+            _lootingManager.OnMovementComplete -= AddItem;
         }
     }
 }

@@ -58,19 +58,21 @@ namespace Game.Scripts
             _inventory.OnItemHoverEnd -= OnPlantEndHover;
         }
 
-        public bool CanPlant(ItemData data)
+        public bool TryToPlantSeed(ItemData data)
         {
-            if (data == _plantData)
+            if (data != _plantData)
             {
-                return true;
+                return false;
             }
-
-            return false;
-        }
-
-        public void PlantSeed()
-        {
+            
+            if (!IsCloseEnoughToPlayer())
+            {
+                return false;
+            }
+            
             StartGrowing();
+
+            return true;
         }
 
         public void OnClick()

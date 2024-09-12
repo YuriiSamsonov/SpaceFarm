@@ -302,6 +302,9 @@ MonoBehaviour:
   _outline: {fileID: 1817105471827452736}
   _inventory: {fileID: 0}
   _maxDistance: 5
+  _startPlantScale: 2
+  _endPlantScale: 8
+  _secondsToGrow: 5
 --- !u!114 &1817105471827452736
 MonoBehaviour:
   m_ObjectHideFlags: 0

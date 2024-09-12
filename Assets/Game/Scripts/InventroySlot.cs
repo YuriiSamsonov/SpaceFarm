@@ -104,9 +104,13 @@ namespace Game.Scripts
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (ItemData == null)
+            {
+                return;
+            }
+            
             _draggedItem = Instantiate(_draggedItemPrefab, _canvasTransform);
             _draggedItem.sprite = _itemImage.sprite;
-            _draggedItem.rectTransform.sizeDelta = _itemImage.rectTransform.sizeDelta;
             _draggedItem.gameObject.SetActive(true);
 
             _inventory.StartHoverItem(ItemData);

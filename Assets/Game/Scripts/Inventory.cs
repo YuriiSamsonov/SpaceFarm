@@ -26,7 +26,7 @@ namespace Game.Scripts
         
         private List<InventorySlot> _slots = new();
         
-        public delegate void ItemHoverEventHandler(Vector3 position);
+        public delegate void ItemHoverEventHandler();
         public event ItemHoverEventHandler OnItemHoverStart;
         public event ItemHoverEventHandler OnItemHoverEnd;
         
@@ -82,13 +82,13 @@ namespace Game.Scripts
         {
             if (data.Type == ItemType.Plant)
             {
-                OnItemHoverStart?.Invoke(_player.transform.position);
+                OnItemHoverStart?.Invoke();
             }
         }
 
         public void EndHoverItem()
         {
-            OnItemHoverEnd?.Invoke(_player.transform.position);
+            OnItemHoverEnd?.Invoke();
         }
     }
 }

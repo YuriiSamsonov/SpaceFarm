@@ -5471,8 +5471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03bb7610a47648119b154da7fde01d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1109587925619467466}
-  _lootingManager: {fileID: 275633557}
 --- !u!1 &282026493
 GameObject:
   m_ObjectHideFlags: 0
@@ -18532,6 +18530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 1109587924270480575}
   _speed: 6
+  _gravity: -2
   _animator: {fileID: 1109587925610075911}
   _inputManager: {fileID: 275633559}
 --- !u!1 &1109587925619467467

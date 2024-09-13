@@ -13,6 +13,9 @@ namespace Game.Scripts
         private List<ItemData> _itemsToYiel = new();
         
         [field: SerializeField] 
+        private ParticleSystem _burstParticles;
+        
+        [field: SerializeField] 
         private Outline _outline;
 
         [field: SerializeField] 
@@ -94,6 +97,7 @@ namespace Game.Scripts
                 _readyToHarvest = false;
                 
                 _lootingManager.StartMovement(_itemsToYiel, transform.position);
+                _burstParticles.Play();
             }
         }
 
@@ -142,13 +146,6 @@ namespace Game.Scripts
                 {
                     _readyToHarvest = true;
                 });
-        }
-        
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            
-            Gizmos.DrawWireSphere(transform.position, _maxDistance);
         }
     }
 }

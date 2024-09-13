@@ -16,10 +16,7 @@ namespace Game.Scripts
         
         [field: SerializeField] 
         private TMP_Text _stackText;
-        
-        [field: SerializeField] 
-        private PlayerController _player;
-        
+
         private Image _draggedItemPrefab;
         private Image _draggedItem;
         private Transform _canvasTransform;
@@ -96,10 +93,13 @@ namespace Game.Scripts
         private void PlayPulseAnimation()
         {
             _pulseSequence?.Kill();
+
+            var bounceScaleMultiplier = 1.2f;
+            var duration = 0.2f;
             
             _pulseSequence = DOTween.Sequence()
-                .Append(_itemImage.transform.DOScale(Vector3.one * 1.2f, 0.2f))
-                .Append(_itemImage.transform.DOScale(Vector3.one, 0.2f));
+                .Append(_itemImage.transform.DOScale(Vector3.one * bounceScaleMultiplier, duration))
+                .Append(_itemImage.transform.DOScale(Vector3.one, duration));
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -137,17 +137,15 @@ namespace Game.Scripts
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 var pot = hit.collider.GetComponent<Pot>();
-                
-                if (pot != null)
+
+                if (pot == null)
                 {
-                    if (pot.TryToPlantSeed(ItemData))
-                    {
-                        _inventory.RemoveItem(ItemData);
-                    }
+                    return;
                 }
-                else
+                
+                if (pot.TryToPlantSeed(ItemData))
                 {
-                    Debug.Log("Not over a pot.");
+                    _inventory.RemoveItem(ItemData);
                 }
             }
         }

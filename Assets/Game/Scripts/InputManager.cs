@@ -121,7 +121,7 @@ namespace Game.Scripts
         private bool IsTouchingClickableObject(Finger finger)
         {
             var ray = _mainCamera.ScreenPointToRay(finger.currentTouch.screenPosition);
-    
+            
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (hit.collider.TryGetComponent<IClickableObject>(out var clickable))

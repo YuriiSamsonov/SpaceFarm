@@ -15,6 +15,14 @@ namespace Game.Scripts
         private Animator _animator;
         public Animator Animator => _animator;
         
+        [field: SerializeField] 
+        private ParticleSystem _onAdultParticles;
+        
+        [field: SerializeField] 
+        private float _speed = 3f;
+
+        public float Speed => _speed;
+        
         [field: SerializeField]
         private float _minAdultDelay = 2f;
         
@@ -65,6 +73,7 @@ namespace Game.Scripts
         {
             StateMachine.Initialize(WalkingState);
             StartCoroutine(BecomeAdultAfterDelay());
+            _onAdultParticles.Play();
         }
 
         private void Update()
@@ -79,6 +88,7 @@ namespace Game.Scripts
 
             transform.localScale = _adultSize;
             _isLamb = false;
+            _onAdultParticles.Play();
         }
 
         public Vector3 FindPointWalkTo()
@@ -137,8 +147,13 @@ namespace Game.Scripts
             HideInteractionMenu();
 
             _onDeathCallback();
-            
+
             Destroy(gameObject);
+        }
+        
+        public void OnWindowHide()
+        {
+            HideInteractionMenu();
         }
     }
 }

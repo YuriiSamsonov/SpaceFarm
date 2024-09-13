@@ -10,6 +10,9 @@ namespace Game.Scripts
         
         [field: SerializeField] 
         private RectTransform _windowRectTransform;
+
+        [field: SerializeField] 
+        private InputManager _inputManager;
         
         private Vector3 _anchorPosition;
         private Camera _mainCamera;
@@ -20,6 +23,7 @@ namespace Game.Scripts
         private void Awake()
         {
             _mainCamera = Camera.main;
+            Hide();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -39,16 +43,22 @@ namespace Game.Scripts
             _windowHolder = windowHolder;
             
             _isOpened = true;
-            
+
             _anchorPosition = anchorPosition;
 
             _canvasGroup.alpha = 1f;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
         }
         
         private void Hide()
         {
+            _windowHolder?.OnWindowHide();
             _canvasGroup.alpha = 0f;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
             _isOpened = false;
+            _windowHolder = null;
         }
         
         private void Update()
@@ -56,6 +66,11 @@ namespace Game.Scripts
             if (!_isOpened)
             {
                 return;
+            }
+
+            if (_inputManager.MovementAmount != Vector2.zero)
+            {
+                Hide();
             }
             
             var screenPos = _mainCamera.WorldToScreenPoint(_anchorPosition);

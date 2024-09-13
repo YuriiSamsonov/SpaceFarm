@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Game.Scripts
 {
@@ -15,12 +14,9 @@ namespace Game.Scripts
         private Animator _animator;
 
         [field: SerializeField] 
-        private ItemData _plant;
-        
-        [field: SerializeField] 
         private InputManager _inputManager;
         
-        private int _walkAnimationHash = Animator.StringToHash("Walk");
+        private static readonly int WalkHash = Animator.StringToHash("Walk");
 
         private void Update()
         {
@@ -38,16 +34,11 @@ namespace Game.Scripts
             }
             
             ResolveAnimation();
-
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                FindObjectOfType<Inventory>().AddItem(_plant);
-            }
         }
 
         private void ResolveAnimation()
         {
-            _animator.SetBool(_walkAnimationHash, _inputManager.MovementAmount != Vector2.zero);
+            _animator.SetBool(WalkHash, _inputManager.MovementAmount != Vector2.zero);
         }
     }
 }

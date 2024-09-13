@@ -32,11 +32,9 @@ namespace Game.Scripts
         {
             base.FrameUpdate();
 
-            var speed = 3f;
-            
             var direction = (_destination - _animal.transform.position).normalized;
             
-            _animal.transform.Translate(direction * (speed * Time.deltaTime), Space.World);
+            _animal.transform.Translate(direction * (_animal.Speed * Time.deltaTime), Space.World);
             
             _animal.transform.LookAt(_destination);
             

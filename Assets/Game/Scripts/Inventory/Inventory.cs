@@ -24,6 +24,9 @@ namespace Game.Scripts
         
         [field: SerializeField] 
         private LootingManager _lootingManager;
+        
+        [field: SerializeField] 
+        private ItemData _plantData;
 
         private List<InventorySlot> _slots = new();
         
@@ -42,6 +45,8 @@ namespace Game.Scripts
                 inventorySlot.Init(_draggedItemPrefab, _canvasTransform, this);
                 _slots.Add(inventorySlot);
             }
+            
+            AddItem(_plantData);
         }
 
         public void AddItem(ItemData data)

@@ -6,6 +6,10 @@ namespace Game.Scripts
     {
         private float _delayTime;
         private float _startTime;
+        
+        private readonly float _minDelay = 1f;
+        private readonly float _maxDelay = 3f;
+        
 
         public IdleState(Animal animal, StateMachine stateMachine) : base(animal, stateMachine)
         {
@@ -15,7 +19,7 @@ namespace Game.Scripts
         {
             base.EnterState();
             
-            _delayTime = Random.Range(1f, 3f);
+            _delayTime = Random.Range(_minDelay, _maxDelay);
 
             _startTime = Time.time;
         }

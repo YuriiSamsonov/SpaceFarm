@@ -26,6 +26,9 @@ namespace Game.Scripts
         private Sequence _pulseSequence;
         
         private int _stackSize;
+        
+        private readonly float bounceScaleMultiplier = 1.2f;
+        private readonly float duration = 0.2f;
 
         private void Awake()
         {
@@ -43,7 +46,7 @@ namespace Game.Scripts
         {
             ItemData = data;
             _itemImage.sprite = data.ItemSprite;
-            _stackSize = 1;
+            _stackSize++;
             UpdateUI();
             PlayPulseAnimation();
         }
@@ -68,7 +71,7 @@ namespace Game.Scripts
             UpdateUI();
         }
 
-        public void ClearSlot()
+        private void ClearSlot()
         {
             ItemData = null;
             _stackSize = 0;
@@ -82,21 +85,17 @@ namespace Game.Scripts
             {
                 _itemImage.color = new Color(_itemImage.color.r, _itemImage.color.g, _itemImage.color.b, 1);
                 _stackText.text = _stackSize > 1 ? _stackSize.ToString() : string.Empty;
+                return;
             }
-            else
-            {
-                _itemImage.color = new Color(_itemImage.color.r, _itemImage.color.g, _itemImage.color.b, 0);
-                _stackText.text = string.Empty;
-            }
+            
+            _itemImage.color = new Color(_itemImage.color.r, _itemImage.color.g, _itemImage.color.b, 0);
+            _stackText.text = string.Empty;
         }
         
         private void PlayPulseAnimation()
         {
             _pulseSequence?.Kill();
 
-            var bounceScaleMultiplier = 1.2f;
-            var duration = 0.2f;
-            
             _pulseSequence = DOTween.Sequence()
                 .Append(_itemImage.transform.DOScale(Vector3.one * bounceScaleMultiplier, duration))
                 .Append(_itemImage.transform.DOScale(Vector3.one, duration));
@@ -118,7 +117,7 @@ namespace Game.Scripts
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (_draggedItem != null)
+            if (_draggedItem)
             {
                 _draggedItem.rectTransform.position = eventData.position;
             }
@@ -126,7 +125,7 @@ namespace Game.Scripts
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (_draggedItem != null)
+            if (_draggedItem)
             {
                 _inventory.EndHoverItem();
                 Destroy(_draggedItem.gameObject);
@@ -138,12 +137,7 @@ namespace Game.Scripts
             {
                 var pot = hit.collider.GetComponent<Pot>();
 
-                if (pot == null)
-                {
-                    return;
-                }
-                
-                if (pot.TryToPlantSeed(ItemData))
+                if (pot != null && pot.TryToPlantSeed(ItemData))
                 {
                     _inventory.RemoveItem(ItemData);
                 }

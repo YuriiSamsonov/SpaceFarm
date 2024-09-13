@@ -7,12 +7,8 @@ using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
 namespace Game.Scripts
 {
-    
     public class InputManager : MonoBehaviour
     {
-        [field: SerializeField] 
-        private Vector3 _joystickSize = new(300, 300);
-
         [field: SerializeField] 
         private TouchscreenJoystick _joystick;
         
@@ -22,10 +18,12 @@ namespace Game.Scripts
         private Camera _mainCamera;
         private Finger _finger;
         public Vector2 MovementAmount { get; private set; }
+        private Vector3 _joystickSize = new Vector3();
 
         private void Awake()
         {
             _mainCamera = Camera.main;
+            _joystickSize = _joystick.RectTransform.sizeDelta;
         }
 
         private void OnEnable()
@@ -49,8 +47,8 @@ namespace Game.Scripts
             if (finger == _finger)
             {
                 Vector2 knobPosition;
-                float maxMovement = _joystickSize.x / 2f;
-                ETouch.Touch currentTouch = finger.currentTouch;
+                var maxMovement = _joystickSize.x * 0.5f;
+                var currentTouch = finger.currentTouch;
 
                 if (Vector2.Distance(currentTouch.screenPosition, _joystick.RectTransform.anchoredPosition) > maxMovement)
                 {
@@ -71,7 +69,6 @@ namespace Game.Scripts
             if (finger == _finger)
             {
                 _finger = null;
-                _joystick.CircleRectTransform.anchoredPosition = Vector2.zero;
                 _joystick.gameObject.SetActive(false);
                 MovementAmount = Vector2.zero;
             }
@@ -89,7 +86,7 @@ namespace Game.Scripts
                 return;
             }
             
-            if (_finger == null && finger.screenPosition.x <= Screen.width / 2f)
+            if (_finger == null && finger.screenPosition.x <= Screen.width * 0.5f)
             {
                 _finger = finger;
                 MovementAmount = Vector2.zero;
@@ -136,18 +133,18 @@ namespace Game.Scripts
         
         private Vector2 ClampStartPosition(Vector2 startPos)
         {
-            if (startPos.x < _joystickSize.x / 2)
+            if (startPos.x < _joystickSize.x * 0.5f)
             {
-                startPos.x = _joystickSize.x / 2;
+                startPos.x = _joystickSize.x * 0.5f;
             }
 
-            if (startPos.y < _joystickSize.y / 2)
+            if (startPos.y < _joystickSize.y * 0.5f)
             {
-                startPos.y = _joystickSize.y / 2;
+                startPos.y = _joystickSize.y * 0.5f;
             }
-            else if (startPos.y > Screen.height - _joystickSize.y / 2)
+            else if (startPos.y > Screen.height - _joystickSize.y  * 0.5f)
             {
-                startPos.y = Screen.height - _joystickSize.y / 2;
+                startPos.y = Screen.height - _joystickSize.y  * 0.5f;
             }
 
             return startPos;

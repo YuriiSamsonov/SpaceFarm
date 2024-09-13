@@ -5068,9 +5068,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
         type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1109587925619467466}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
+      propertyPath: _installer
+      value: 
+      objectReference: {fileID: 275633561}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
       propertyPath: _inventory
       value: 
       objectReference: {fileID: 1285534033}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
+      propertyPath: _lootingManager
+      value: 
+      objectReference: {fileID: 275633557}
     - target: {fileID: 3878092224123646291, guid: 425b18e48a99ca2478f5d8e89d5232cb,
         type: 3}
       propertyPath: m_Name
@@ -5363,6 +5378,7 @@ GameObject:
   - component: {fileID: 275633557}
   - component: {fileID: 275633559}
   - component: {fileID: 275633560}
+  - component: {fileID: 275633561}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -5417,7 +5433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d7ccff3dd34c4e91dc1cfc678cc7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joystickSize: {x: 300, y: 300, z: 0}
   _joystick: {fileID: 2133800539}
   _eventSystem: {fileID: 1976299591}
 --- !u!114 &275633560
@@ -5444,6 +5459,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b602cd46e7132754fa1da454c7215364, type: 2}
   _player: {fileID: 1109587925619467466}
   _interactionWindow: {fileID: 1987700723}
+--- !u!114 &275633561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275633556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bb7610a47648119b154da7fde01d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 1109587925619467466}
+  _lootingManager: {fileID: 275633557}
 --- !u!1 &282026493
 GameObject:
   m_ObjectHideFlags: 0
@@ -5660,9 +5689,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
         type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1109587925619467466}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
+      propertyPath: _installer
+      value: 
+      objectReference: {fileID: 275633561}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
       propertyPath: _inventory
       value: 
       objectReference: {fileID: 1285534033}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
+      propertyPath: _lootingManager
+      value: 
+      objectReference: {fileID: 275633557}
     - target: {fileID: 3878092224123646291, guid: 425b18e48a99ca2478f5d8e89d5232cb,
         type: 3}
       propertyPath: m_Name
@@ -6223,8 +6267,8 @@ CanvasGroup:
   m_GameObject: {fileID: 655581132}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &747281631
 GameObject:
@@ -11861,7 +11905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventorySize: 6
-  _slotPrefab: {fileID: 1206216293512432213, guid: c0860df08bf5d64489221f9a9bbcdda4,
+  _slotPrefab: {fileID: 7637319463896498232, guid: c0860df08bf5d64489221f9a9bbcdda4,
     type: 3}
   _inventoryUIParent: {fileID: 1820753992}
   _draggedItemPrefab: {fileID: 8815225021813854871, guid: 155ad451865592d41bf055d0347eb2cf,
@@ -18744,9 +18788,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
         type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1109587925619467466}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
+      propertyPath: _installer
+      value: 
+      objectReference: {fileID: 275633561}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
       propertyPath: _inventory
       value: 
       objectReference: {fileID: 1285534033}
+    - target: {fileID: 2079977445506656278, guid: 425b18e48a99ca2478f5d8e89d5232cb,
+        type: 3}
+      propertyPath: _lootingManager
+      value: 
+      objectReference: {fileID: 275633557}
     - target: {fileID: 2566969864011301717, guid: 425b18e48a99ca2478f5d8e89d5232cb,
         type: 3}
       propertyPath: m_LocalScale.x

@@ -83,7 +83,7 @@ namespace Game.Scripts
         
         private IEnumerator BecomeAdultAfterDelay()
         {
-            float delay = Random.Range(_minAdultDelay, _maxAdultDelay);
+            var delay = Random.Range(_minAdultDelay, _maxAdultDelay);
             yield return new WaitForSeconds(delay);
 
             transform.localScale = _adultSize;
@@ -103,12 +103,7 @@ namespace Game.Scripts
 
         public void OnClick()
         {
-            if (_isLamb)
-            {
-                return;
-            }
-            
-            if (!IsCloseEnoughToPlayer())
+            if (_isLamb || !IsCloseEnoughToPlayer())
             {
                 return;
             }

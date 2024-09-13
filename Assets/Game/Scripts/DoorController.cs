@@ -7,15 +7,22 @@ namespace Game.Scripts
     public class DoorController : MonoBehaviour
     {
         [field: SerializeField] 
-        private GameObject _doorRight, _doorLeft;
+        private GameObject _doorRight; 
+        
+        [field: SerializeField] 
+        private GameObject _doorLeft;
 
         [field: SerializeField] 
-        private Vector3 _rightDoorOpenPos, _leftDoorOpenPos;
+        private Vector3 _rightDoorOpenPos;
+        
+        [field: SerializeField] 
+        private Vector3 _leftDoorOpenPos;
         
         [field: SerializeField] 
         private LayerMask _playerLayer;
 
-        private Vector3 _rightDoorClosePos, _leftDoorClosePos;
+        private Vector3 _rightDoorClosePos;
+        private Vector3 _leftDoorClosePos;
         
         private void Start()
         {

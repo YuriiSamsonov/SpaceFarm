@@ -11,7 +11,7 @@ namespace Game.Scripts
         private int _inventorySize = 6;
 
         [field: SerializeField]
-        private GameObject _slotPrefab;
+        private InventorySlot _slotPrefab;
 
         [field: SerializeField] 
         private Transform _inventoryUIParent;
@@ -41,15 +41,14 @@ namespace Game.Scripts
             for (int i = 0; i < _inventorySize; i++)
             {
                 var slot = Instantiate(_slotPrefab, _inventoryUIParent);
-                var inventorySlot = slot.GetComponent<InventorySlot>();
-                inventorySlot.Init(_draggedItemPrefab, _canvasTransform, this);
-                _slots.Add(inventorySlot);
+                slot.Init(_draggedItemPrefab, _canvasTransform, this);
+                _slots.Add(slot);
             }
             
             AddItem(_plantData);
         }
 
-        public void AddItem(ItemData data)
+        private void AddItem(ItemData data)
         {
             foreach (var slot in _slots)
             {
@@ -68,8 +67,6 @@ namespace Game.Scripts
                     return;
                 }
             }
-
-            Debug.LogWarning("Inventory is full!");
         }
 
         public void RemoveItem(ItemData data)
@@ -82,8 +79,6 @@ namespace Game.Scripts
                     return;
                 }
             }
-
-            Debug.LogWarning("Item not found in inventory!");
         }
 
         public void StartHoverItem(ItemData data)

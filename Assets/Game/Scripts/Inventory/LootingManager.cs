@@ -71,7 +71,7 @@ namespace Game.Scripts
             }
         }
         
-        private Vector2[] GenerateRandomPath(Vector2 startPos, Vector2 targetPos)
+        private List<Vector2> GenerateRandomPath(Vector2 startPos, Vector2 targetPos)
         {
             var randomX = Random.Range(_minSpread, _maxSpread);
             var randomY = Random.Range(_minSpread, _maxSpread);
@@ -80,8 +80,8 @@ namespace Game.Scripts
             randomY *= Random.value > 0.5f ? 1 : -1;
             
             var controlPoint1 = startPos + new Vector2(randomX, randomY);
-        
-            return new [] { controlPoint1, targetPos };
+            
+            return new List<Vector2> { controlPoint1, targetPos };
         }
     }
 }

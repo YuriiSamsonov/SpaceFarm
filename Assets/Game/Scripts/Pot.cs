@@ -20,10 +20,13 @@ namespace Game.Scripts
 
         [field: SerializeField] 
         private Inventory _inventory;
-
-        [field: SerializeField] 
-        private ItemData _plantData;
         
+        [field: SerializeField] 
+        private PlayerController _player;
+        
+        [field: SerializeField] 
+        private LootingManager _lootingManager;
+
         [field: SerializeField] 
         private float _maxDistance = 5f;
         
@@ -33,11 +36,8 @@ namespace Game.Scripts
         [field: SerializeField] 
         private float _endPlantScale = 8f;
 
-        [field: SerializeField] 
+        [field: SerializeField]
         private float _secondsToGrow = 5f;
-
-        private PlayerController _player;
-        private LootingManager _lootingManager;
 
         private bool _hasPlant;
         private bool _readyToHarvest;
@@ -47,10 +47,7 @@ namespace Game.Scripts
         private void Awake()
         {
             _outline.enabled = false;
-            
-            _player = FindObjectOfType<PlayerController>();
-            _lootingManager = FindObjectOfType<LootingManager>();
-            
+
             _inventory.OnItemHoverStart += OnPlantStartHover;
             _inventory.OnItemHoverEnd += OnPlantEndHover;
         }
@@ -63,7 +60,7 @@ namespace Game.Scripts
 
         public bool TryToPlantSeed(ItemData data)
         {
-            if (data != _plantData)
+            if (data.Type != ItemType.Plant)
             {
                 return false;
             }
@@ -112,7 +109,7 @@ namespace Game.Scripts
             {
                 return;
             }
-            
+
             _outline.enabled = true;
         }
 

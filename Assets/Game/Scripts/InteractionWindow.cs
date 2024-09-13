@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Game.Scripts
@@ -40,25 +41,29 @@ namespace Game.Scripts
         
         public void Show(IWindowHolder windowHolder, Vector3 anchorPosition)
         {
-            _windowHolder = windowHolder;
-            
             _isOpened = true;
 
             _anchorPosition = anchorPosition;
-
-            _canvasGroup.alpha = 1f;
-            _canvasGroup.interactable = true;
-            _canvasGroup.blocksRaycasts = true;
+            
+            _canvasGroup.DOFade(1, 0.1f).OnComplete(() =>
+            {
+                _canvasGroup.interactable = true;
+                _canvasGroup.blocksRaycasts = true;
+                
+                _windowHolder = windowHolder;
+            });
         }
         
         private void Hide()
         {
-            _windowHolder?.OnWindowHide();
-            _canvasGroup.alpha = 0f;
-            _canvasGroup.interactable = false;
-            _canvasGroup.blocksRaycasts = false;
-            _isOpened = false;
-            _windowHolder = null;
+            _canvasGroup.DOFade(0, 0.1f).OnComplete(() =>
+            {
+                _canvasGroup.interactable = false;
+                _canvasGroup.blocksRaycasts = false;
+                _windowHolder?.OnWindowHide();
+                _isOpened = false;
+                _windowHolder = null;
+            });
         }
         
         private void Update()
